@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
-import { TrianglePattern } from "@/components/TrianglePattern";
+import { FloatingOrb } from "@/components/FloatingOrb";
+import { FlowingShape } from "@/components/FlowingShape";
+import { HelpCircle } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -40,22 +42,33 @@ const FAQ = () => {
   ];
   
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-[#001F3F] via-[#002a57] to-[#000b18]">
+      {/* Floating Orbs */}
+      <FloatingOrb size={200} top="10%" left="5%" delay={0} />
+      <FloatingOrb size={150} bottom="15%" right="8%" delay={1} />
+      <FloatingOrb size={100} top="50%" left="85%" delay={2} />
+      
+      {/* Flowing Shapes */}
+      <FlowingShape variant="wave1" className="top-0 left-0 w-full h-full" />
+      <FlowingShape variant="wave2" className="bottom-0 left-0 w-full h-full" />
+      
       {/* Hero Section */}
-      <section className="relative pt-32 pb-16 overflow-hidden">
-        <TrianglePattern />
-        
-        <div className="container mx-auto px-6 relative z-10">
+      <section className="pt-32 pb-20 relative z-10">
+        <div className="container mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.8 }}
             className="max-w-4xl mx-auto text-center"
           >
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
+            <div className="w-20 h-20 sphere-gradient rounded-full flex items-center justify-center mx-auto mb-8 shadow-[0_0_60px_rgba(245,196,0,0.4)]">
+              <HelpCircle className="w-10 h-10 text-[#001F3F]" strokeWidth={2.5} />
+            </div>
+            
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white leading-tight">
               Frequently Asked <span className="text-gradient">Questions</span>
             </h1>
-            <p className="text-xl text-muted-foreground">
+            <p className="text-xl md:text-2xl text-white/80 leading-relaxed">
               Everything you need to know about Naba
             </p>
           </motion.div>
@@ -63,31 +76,31 @@ const FAQ = () => {
       </section>
       
       {/* FAQ Section */}
-      <section className="py-16 pb-24">
+      <section className="pb-32 relative z-10">
         <div className="container mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
             className="max-w-4xl mx-auto"
           >
-            <Accordion type="single" collapsible className="space-y-4">
+            <Accordion type="single" collapsible className="space-y-6">
               {faqs.map((faq, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
                   <AccordionItem 
                     value={`item-${index}`}
-                    className="bg-card border-2 border-border hover:border-accent/50 rounded-xl px-6 transition-all duration-300 shadow-md hover:shadow-lg"
+                    className="glass-card rounded-3xl px-8 border-white/10 hover:border-[#F5C400]/30 transition-all duration-500 shadow-lg hover:shadow-[0_20px_60px_rgba(245,196,0,0.15)]"
                   >
-                    <AccordionTrigger className="text-left text-lg font-semibold hover:no-underline py-6">
+                    <AccordionTrigger className="text-left text-lg md:text-xl font-semibold hover:no-underline py-8 text-white">
                       {faq.question}
                     </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground leading-relaxed pb-6 pt-2">
+                    <AccordionContent className="text-white/70 leading-relaxed pb-8 pt-2 text-base md:text-lg">
                       {faq.answer}
                     </AccordionContent>
                   </AccordionItem>
